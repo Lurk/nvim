@@ -1,4 +1,4 @@
-# Based in kickstart.nvim
+# Based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim)
 
 ## Installation
 
