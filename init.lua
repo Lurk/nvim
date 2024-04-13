@@ -186,68 +186,27 @@ require('lazy').setup({
   },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-  { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    opts = {
-      ensure_installed = {
-        'bash',
-        'c',
-        'html',
-        'lua',
-        'luadoc',
-        'markdown',
-        'vim',
-        'vimdoc',
-        'typescript',
-        'javascript',
-        'rust',
-      },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    config = function(_, opts)
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
-      ---@diagnostic disable-next-line: missing-fields
-      require('nvim-treesitter.configs').setup(opts)
-
-      -- There are additional nvim-treesitter modules that you can use to interact
-      -- with nvim-treesitter. You should go explore a few and see what interests you:
-      --
-      --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-      --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-      --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    end,
-  },
-
-  require 'custom.plugins.lsp',
-  require 'custom.plugins.nvim-cmp',
-  require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
-  require 'custom.plugins.gruvbox-material',
-  require 'custom.plugins.barbecue',
-  require 'custom.plugins.toggleterm',
-  require 'custom.plugins.neo-tree',
-  require 'custom.plugins.gitsigns',
-  require 'custom.plugins.autosave',
-  require 'custom.plugins.neotest',
-  require 'custom.plugins.autopairs',
-  require 'custom.plugins.which-key',
-  -- require 'custom.plugins.rust',
-  require 'custom.plugins.crates',
-  require 'custom.plugins.comment',
-  require 'custom.plugins.telescope',
-  require 'custom.plugins.mini',
+  require 'plugins.treesitter',
+  require 'plugins.lsp',
+  require 'plugins.nvim-cmp',
+  require 'plugins.debug',
+  require 'plugins.indent_line',
+  require 'plugins.lint',
+  require 'plugins.gruvbox-material',
+  require 'plugins.barbecue',
+  require 'plugins.toggleterm',
+  require 'plugins.neo-tree',
+  require 'plugins.gitsigns',
+  require 'plugins.autosave',
+  require 'plugins.neotest',
+  require 'plugins.autopairs',
+  require 'plugins.which-key',
+  -- require 'plugins.rust',
+  require 'plugins.crates',
+  require 'plugins.comment',
+  require 'plugins.telescope',
+  require 'plugins.mini',
 }, {
   ui = {
     icons = {
