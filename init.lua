@@ -169,6 +169,7 @@ require('lazy').setup({
   require 'plugins.comment',
   require 'plugins.telescope',
   require 'plugins.mini',
+  require 'plugins.package-info',
 }, {
   ui = {
     icons = {
