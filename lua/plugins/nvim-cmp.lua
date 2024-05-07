@@ -33,16 +33,16 @@ return { -- Autocompletion
     --  into multiple repos for maintenance purposes.
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-path',
-    {
-      'zbirenbaum/copilot.lua',
-      cmd = 'Copilot',
-      opts = { suggestion = { auto_trigger = true, debounce = 150 } },
-    },
+    -- {
+    --   'zbirenbaum/copilot.lua',
+    --   cmd = 'Copilot',
+    --   opts = { suggestion = { auto_trigger = true, debounce = 150 } },
+    -- },
   },
   config = function()
     -- See `:help cmp`
     local cmp = require 'cmp'
-    local copilot = require 'copilot.suggestion'
+    -- local copilot = require 'copilot.suggestion'
     local luasnip = require 'luasnip'
     luasnip.config.setup {}
 
@@ -77,9 +77,10 @@ return { -- Autocompletion
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
         ['<C-i>'] = cmp.mapping(function(fallback)
-          if copilot.is_visible() then
-            copilot.accept()
-          elseif cmp.visible() then
+          -- if copilot.is_visible() then
+          --   copilot.accept()
+          -- else
+          if cmp.visible() then
             cmp.confirm { select = true }
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
