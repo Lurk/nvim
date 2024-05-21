@@ -40,7 +40,9 @@ return {
         line_up = '<S-Up>',
       },
     }
-    -- ... and there is more!
-    --  Check out: https://github.com/echasnovski/mini.nvim
+
+    -- highlight trailing space
+    require('mini.trailspace').setup()
+
   end,
 }
