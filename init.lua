@@ -146,6 +146,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
+  'norcalli/nvim-colorizer.lua',
   require 'plugins.todo-highlight',
   require 'plugins.conform',
   require 'plugins.treesitter',
@@ -153,7 +154,6 @@ require('lazy').setup({
   require 'plugins.nvim-cmp',
   require 'plugins.debug',
   require 'plugins.indent_line',
-  require 'plugins.lint',
   require 'plugins.gruvbox-material',
   require 'plugins.barbecue',
   require 'plugins.toggleterm',
