@@ -44,5 +44,6 @@ return {
     -- highlight trailing space
     require('mini.trailspace').setup()
 
+    require('mini.jump2d').setup()
   end,
 }
