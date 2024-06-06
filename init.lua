@@ -7,11 +7,9 @@ vim.g.maplocalleader = ' '
 -- Gruvbox specific
 vim.g.gruvbox_material_background = 'medium'
 vim.g.gruvbox_material_float_style = 'dim'
-
 -- [[ Setting options ]]
 -- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
+-- NOTE: For more options, you can see `:help option-list`
 
 -- More colors
 vim.opt.termguicolors = true
@@ -118,9 +116,24 @@ vim.keymap.set('v', '<leader>/', '<Esc>:normal gvgc<CR>', { desc = '[/] Toggle c
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  group = vim.api.nvim_create_augroup('+highlight-yank+', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+-- Autosaves current buffer
+vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'VimLeavePre' }, {
+  desc = 'Autosaves current buffer',
+  group = vim.api.nvim_create_augroup('+autosave+', {}),
+  callback = function(event)
+    if vim.api.nvim_get_option_value('buftype', { buf = event.buf }) == '' and vim.api.nvim_get_option_value('modified', { buf = event.buf }) then
+      vim.schedule(function()
+        vim.api.nvim_buf_call(event.buf, function()
+          vim.cmd 'silent! write'
+        end)
+      end)
+    end
   end,
 })
 
@@ -159,7 +172,6 @@ require('lazy').setup({
   require 'plugins.toggleterm',
   require 'plugins.neo-tree',
   require 'plugins.gitsigns',
-  require 'plugins.autosave',
   require 'plugins.neotest',
   require 'plugins.autopairs',
   require 'plugins.which-key',
