@@ -4,9 +4,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Gruvbox specific
-vim.g.gruvbox_material_background = 'medium'
-vim.g.gruvbox_material_float_style = 'dim'
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: For more options, you can see `:help option-list`
