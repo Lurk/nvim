@@ -80,6 +80,11 @@ return { -- LSP Configuration & Plugins
 
     local servers = {
       rust_analyzer = {},
+      typos_lsp = {
+        filetypes = { '*' },
+        diagnosticSeverity = 'Error',
+        settings = {},
+      },
       tsserver = {},
       lua_ls = {
         settings = {
