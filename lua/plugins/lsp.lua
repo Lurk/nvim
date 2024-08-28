@@ -81,6 +81,7 @@ return { -- LSP Configuration & Plugins
     local servers = {
       rust_analyzer = {},
       typos_lsp = {
+        cmd_env = { RUST_LOG = 'error' },
         filetypes = { '*' },
         diagnosticSeverity = 'Error',
         settings = {},
