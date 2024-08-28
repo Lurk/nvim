@@ -178,6 +178,7 @@ require('lazy').setup({
   require 'plugins.mini',
   require 'plugins.package-info',
   -- require 'plugins.precognition',
+  require 'plugins.avante',
 }, {
   ui = {
     icons = {
