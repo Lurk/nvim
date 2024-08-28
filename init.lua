@@ -177,7 +177,7 @@ require('lazy').setup({
   require 'plugins.telescope',
   require 'plugins.mini',
   require 'plugins.package-info',
-  require 'plugins.precognition',
+  -- require 'plugins.precognition',
 }, {
   ui = {
     icons = {
