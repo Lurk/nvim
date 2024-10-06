@@ -18,3 +18,7 @@ External Requirements:
 cd ~/.config
 git clone https://github.com/Lurk/nvim.git nvim
 ```
+
+## Custom keys
+
+- `U` - redo 

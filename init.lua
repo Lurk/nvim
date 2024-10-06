@@ -64,7 +64,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', space = '·' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -98,6 +98,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- misc
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = '[W]rite current buffer' })
 vim.keymap.set('n', '<leader>/', ':normal gcc<CR><DOWN>', { desc = '[/] Toggle comment line' })
+vim.keymap.set('n', 'U', '<C-r>', { noremap = true, desc = 'Redo' })
 -- <Esc> - exists visual mode.
 -- :normal executes keystrokes in normal mode.
 -- gv - restores selection.
@@ -172,13 +173,11 @@ require('lazy').setup({
   require 'plugins.neotest',
   require 'plugins.autopairs',
   require 'plugins.which-key',
-  -- require 'plugins.rust',
+  require 'plugins.rust',
   require 'plugins.crates',
   require 'plugins.telescope',
   require 'plugins.mini',
   require 'plugins.package-info',
-  -- require 'plugins.precognition',
-  require 'plugins.avante',
 }, {
   ui = {
     icons = {
