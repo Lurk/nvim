@@ -63,5 +63,7 @@ return {
     require('mini.cursorword').setup()
 
     require('mini.pairs').setup()
+
+    require('mini.operators').setup()
   end,
 }
