@@ -138,6 +138,7 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'VimLeavePre' }, {
 vim.filetype.add {
   extension = {
     yamd = 'markdown',
+    html = 'htmldjango',
   },
 }
 
