@@ -21,4 +21,4 @@ git clone https://github.com/Lurk/nvim.git nvim
 
 ## Custom keys
 
-- `U` - redo 
+- `U` - redo

@@ -167,21 +167,18 @@ require('lazy').setup({
   require 'plugins.conform',
   require 'plugins.treesitter',
   require 'plugins.lsp',
-  require 'plugins.nvim-cmp',
   require 'plugins.debug',
-  require 'plugins.indent_line',
   require 'plugins.gruvbox-material',
-  require 'plugins.barbecue',
   require 'plugins.toggleterm',
   require 'plugins.neo-tree',
   require 'plugins.gitsigns',
   require 'plugins.neotest',
-  require 'plugins.which-key',
   require 'plugins.rust',
   require 'plugins.crates',
   require 'plugins.telescope',
   require 'plugins.mini',
   require 'plugins.package-info',
+  require 'plugins.codecompanion',
 }, {
   ui = {
     icons = {
