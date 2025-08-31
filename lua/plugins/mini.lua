@@ -1,6 +1,6 @@
 -- Collection of various small independent plugins/modules
 return {
-  'echasnovski/mini.nvim',
+  'nvim-mini/mini.nvim',
   config = function()
     -- Better Around/Inside textobjects
     --
@@ -67,6 +67,8 @@ return {
     require('mini.operators').setup()
 
     require('mini.completion').setup()
+
+    require('mini.diff').setup()
 
     local miniclue = require 'mini.clue'
     miniclue.setup {
