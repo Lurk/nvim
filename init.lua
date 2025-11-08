@@ -126,10 +126,8 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'VimLeavePre' }, {
   group = vim.api.nvim_create_augroup('+autosave+', {}),
   callback = function(event)
     if vim.api.nvim_get_option_value('buftype', { buf = event.buf }) == '' and vim.api.nvim_get_option_value('modified', { buf = event.buf }) then
-      vim.schedule(function()
-        vim.api.nvim_buf_call(event.buf, function()
-          vim.cmd 'silent! write'
-        end)
+      vim.api.nvim_buf_call(event.buf, function()
+        vim.cmd 'silent! write'
       end)
     end
   end,
