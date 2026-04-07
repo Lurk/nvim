@@ -16,6 +16,9 @@ return {
   end,
   opts = {
     close_if_last_window = true,
+    window = {
+      auto_expand_width = true,
+    },
     filesystem = {
       hijack_netrw_behavior = 'disabled',
       follow_current_file = { enabled = true },
