@@ -1,6 +1,7 @@
-return {
-  'lewis6991/gitsigns.nvim',
-  opts = {
+local M = {}
+
+function M.setup()
+  require('gitsigns').setup {
     on_attach = function()
       local gitsigns = require 'gitsigns'
       vim.keymap.set('n', '<leader>gp', gitsigns.preview_hunk, { desc = '[G]it [p]review hunk' })
@@ -8,5 +9,7 @@ return {
         gitsigns.blame_line { full = true }
       end, { desc = '[G]it [b]lame line' })
     end,
-  },
-}
+  }
+end
+
+return M

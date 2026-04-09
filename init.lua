@@ -97,6 +97,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- misc
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = '[W]rite current buffer' })
+vim.keymap.set('n', '<leader>pu', function() vim.pack.update() end, { desc = '[P]ack [U]pdate' })
 vim.keymap.set('n', '<leader>/', ':normal gcc<CR><DOWN>', { desc = '[/] Toggle comment line' })
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true, desc = 'Redo' })
 -- <Esc> - exists visual mode.
@@ -140,63 +141,104 @@ vim.filetype.add {
   },
 }
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
+-- [[ Build hooks — must be registered before vim.pack.add() ]]
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if kind ~= 'install' and kind ~= 'update' then
+      return
+    end
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
-require('lazy').setup({
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'norcalli/nvim-colorizer.lua',
-  require 'plugins.conform',
-  require 'plugins.treesitter',
-  require 'plugins.lsp',
-  require 'plugins.debug',
-  require 'plugins.gruvbox-material',
-  require 'plugins.toggleterm',
-  require 'plugins.neo-tree',
-  require 'plugins.gitsigns',
-  require 'plugins.neotest',
-  require 'plugins.crates',
-  require 'plugins.telescope',
-  require 'plugins.mini',
-  require 'plugins.package-info',
-  require 'plugins.codecompanion',
-}, {
-  ui = {
-    icons = {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-    },
-  },
+    if name == 'nvim-treesitter' then
+      if not ev.data.active then
+        vim.cmd.packadd 'nvim-treesitter'
+      end
+      vim.cmd 'TSUpdate'
+    end
+
+    if name == 'telescope-fzf-native.nvim' then
+      vim.system({ 'make' }, { cwd = ev.data.path }):wait()
+    end
+  end,
 })
 
-require('cursor_agent').setup()
+-- [[ Install plugins ]]
+local specs = {
+  -- Colorscheme (must be first)
+  'https://github.com/sainnhe/gruvbox-material',
+
+  -- Core
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+  'https://github.com/nvim-lua/plenary.nvim',
+  'https://github.com/MunifTanjim/nui.nvim',
+
+  -- LSP ecosystem
+  'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/mason-org/mason.nvim',
+  'https://github.com/mason-org/mason-lspconfig.nvim',
+  'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
+  'https://github.com/j-hui/fidget.nvim',
+  { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range '>=6.0.0 <7.0.0' },
+  'https://github.com/folke/lazydev.nvim',
+
+  -- Editing
+  'https://github.com/stevearc/conform.nvim',
+  'https://github.com/nvim-mini/mini.nvim',
+  'https://github.com/lewis6991/gitsigns.nvim',
+
+  -- UI
+  { src = 'https://github.com/nvim-telescope/telescope.nvim', version = 'master' },
+  'https://github.com/nvim-telescope/telescope-ui-select.nvim',
+  { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = 'v3.x' },
+
+  -- Terminal
+  'https://github.com/akinsho/toggleterm.nvim',
+
+  -- Debug
+  'https://github.com/mfussenegger/nvim-dap',
+  'https://github.com/rcarriga/nvim-dap-ui',
+  'https://github.com/nvim-neotest/nvim-nio',
+  'https://github.com/jay-babu/mason-nvim-dap.nvim',
+  'https://github.com/mxsdev/nvim-dap-vscode-js',
+
+  -- Testing
+  'https://github.com/nvim-neotest/neotest',
+  'https://github.com/nvim-neotest/neotest-jest',
+  'https://github.com/marilari88/neotest-vitest',
+  'https://github.com/rouge8/neotest-rust',
+
+  -- Language-specific
+  { src = 'https://github.com/saecki/crates.nvim', version = 'stable' },
+  'https://github.com/vuki656/package-info.nvim',
+
+  -- AI
+  'https://github.com/github/copilot.vim',
+  'https://github.com/olimorris/codecompanion.nvim',
+}
+
+-- Conditional plugins
+if vim.fn.executable 'make' == 1 then
+  table.insert(specs, 'https://github.com/nvim-telescope/telescope-fzf-native.nvim')
+end
+
+vim.pack.add(specs)
+
+-- [[ Configure plugins ]]
+require('plugins.gruvbox-material').setup()
+require('plugins.treesitter').setup()
+require('plugins.mini').setup()
+require('plugins.telescope').setup()
+require('plugins.conform').setup()
+require('plugins.lsp').setup()
+require('plugins.gitsigns').setup()
+require('plugins.neo-tree').setup()
+require('plugins.toggleterm').setup()
+require('plugins.debug').setup()
+require('plugins.neotest').setup()
+require('plugins.crates').setup()
+require('plugins.package-info').setup()
+require('plugins.copilot').setup()
+require('plugins.codecompanion').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

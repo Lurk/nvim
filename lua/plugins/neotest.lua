@@ -1,33 +1,24 @@
-return {
-  'nvim-neotest/neotest',
-  ft = { 'typescript', 'rust', 'javascript' },
-  dependencies = {
-    'nvim-neotest/nvim-nio',
-    'nvim-lua/plenary.nvim',
-    'antoinemadec/FixCursorHold.nvim',
-    'nvim-treesitter/nvim-treesitter',
-    'nvim-neotest/neotest-jest',
-    'marilari88/neotest-vitest',
-    'rouge8/neotest-rust',
-  },
-  config = function()
-    local run_all_tests = function()
-      require('neotest').run.run { suite = false, vim.fn.expand '%' }
-    end
+local M = {}
 
-    local debug_current = function()
-      require('neotest').run.run { suite = false, strategy = 'dap' }
-    end
+function M.setup()
+  local run_all_tests = function()
+    require('neotest').run.run { suite = false, vim.fn.expand '%' }
+  end
 
-    vim.keymap.set('n', '<leader>dt', debug_current, { desc = '[D]ebug current [t]est' })
-    vim.keymap.set('n', '<leader>rt', run_all_tests, { desc = '[r]un all [t]ests in current file' })
+  local debug_current = function()
+    require('neotest').run.run { suite = false, strategy = 'dap' }
+  end
 
-    require('neotest').setup {
-      adapters = {
-        require 'neotest-vitest',
-        require 'neotest-jest',
-        require 'neotest-rust',
-      },
-    }
-  end,
-}
+  vim.keymap.set('n', '<leader>dt', debug_current, { desc = '[D]ebug current [t]est' })
+  vim.keymap.set('n', '<leader>rt', run_all_tests, { desc = '[r]un all [t]ests in current file' })
+
+  require('neotest').setup {
+    adapters = {
+      require 'neotest-vitest',
+      require 'neotest-jest',
+      require 'neotest-rust',
+    },
+  }
+end
+
+return M
