@@ -199,7 +199,6 @@ local specs = {
   'https://github.com/rcarriga/nvim-dap-ui',
   'https://github.com/nvim-neotest/nvim-nio',
   'https://github.com/jay-babu/mason-nvim-dap.nvim',
-  'https://github.com/mxsdev/nvim-dap-vscode-js',
 
   -- Testing
   'https://github.com/nvim-neotest/neotest',
