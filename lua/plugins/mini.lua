@@ -23,6 +23,9 @@ function M.setup()
 
   require('mini.trailspace').setup()
 
+  require('mini.notify').setup()
+  vim.notify = require('mini.notify').make_notify()
+
   local hipatterns = require 'mini.hipatterns'
   hipatterns.setup {
     highlighters = {
@@ -33,6 +36,39 @@ function M.setup()
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   }
+
+  local minidiff = require 'mini.diff'
+  minidiff.setup()
+
+  local diff_vs_branch = function(base)
+    local bufnr = vim.api.nvim_get_current_buf()
+    local filepath = vim.api.nvim_buf_get_name(bufnr)
+    local root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+    if vim.v.shell_error ~= 0 then
+      vim.notify('mini.diff: not a git repo', vim.log.levels.WARN)
+      return
+    end
+    local relpath = filepath:sub(#root + 2)
+    local ref_lines = vim.fn.systemlist({ 'git', 'show', base .. ':' .. relpath })
+    if vim.v.shell_error ~= 0 then
+      vim.notify('mini.diff: could not read ' .. relpath .. ' from ' .. base, vim.log.levels.WARN)
+      return
+    end
+    minidiff.set_ref_text(bufnr, table.concat(ref_lines, '\n') .. '\n')
+    minidiff.toggle_overlay(bufnr)
+  end
+
+  vim.keymap.set('n', '<leader>gd', function()
+    diff_vs_branch 'main'
+  end, { desc = '[G]it [d]iff vs main' })
+
+  vim.keymap.set('n', '<leader>gD', function()
+    local base = vim.fn.input('Diff vs branch: ')
+    if base == '' then
+      return
+    end
+    diff_vs_branch(base)
+  end, { desc = '[G]it [d]iff vs [b]ranch' })
 
   require('mini.cursorword').setup()
   require('mini.pairs').setup()
