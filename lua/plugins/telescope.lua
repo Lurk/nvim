@@ -31,6 +31,28 @@ function M.setup()
   vim.keymap.set('n', '<leader>sa', live_grep, { desc = '[S]earch [A]ll by grep ignoring gitignore' })
   vim.keymap.set('n', '<leader>sc', builtin.git_status, { desc = '[S]earch [c]hanged files' })
 
+  local changed_files_vs_branch = function(base)
+    local files = vim.fn.systemlist('git diff --name-only ' .. base .. '...HEAD')
+    local qf_items = {}
+    for _, f in ipairs(files) do
+      table.insert(qf_items, { filename = f, lnum = 1, col = 1, text = f })
+    end
+    vim.fn.setqflist(qf_items)
+    builtin.quickfix()
+  end
+
+  vim.keymap.set('n', '<leader>sp', function()
+    changed_files_vs_branch 'main'
+  end, { desc = '[S]earch [P]R changed files vs main' })
+
+  vim.keymap.set('n', '<leader>sP', function()
+    local base = vim.fn.input('Base branch: ')
+    if base == '' then
+      return
+    end
+    changed_files_vs_branch(base)
+  end, { desc = '[S]earch [P]R changed files vs [b]ranch' })
+
   vim.keymap.set('n', '<leader>sb', function()
     builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
       winblend = 10,
