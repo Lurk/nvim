@@ -49,6 +49,17 @@ vim.opt.smartcase = true
 -- Keep signcolumn on by default
 vim.opt.signcolumn = 'yes'
 
+-- Folding (foldmethod/foldexpr set in lua/plugins/treesitter.lua)
+vim.opt.foldlevelstart = 99 -- start with all folds open
+
+-- Fold text: first line + closing line of the fold, e.g. `"question": {...}`
+function _G.FoldText()
+  local start_line = vim.fn.getline(vim.v.foldstart)
+  local end_line = vim.trim(vim.fn.getline(vim.v.foldend))
+  return start_line .. '...' .. end_line
+end
+vim.opt.foldtext = 'v:lua.FoldText()'
+
 -- Decrease update time
 vim.opt.updatetime = 250
 
@@ -97,7 +108,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- misc
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = '[W]rite current buffer' })
-vim.keymap.set('n', '<leader>pu', function() vim.pack.update() end, { desc = '[P]ack [U]pdate' })
+vim.keymap.set('n', '<leader>pu', function()
+  vim.pack.update()
+end, { desc = '[P]ack [U]pdate' })
 vim.keymap.set('n', '<leader>/', ':normal gcc<CR><DOWN>', { desc = '[/] Toggle comment line' })
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true, desc = 'Redo' })
 -- <Esc> - exists visual mode.
@@ -178,7 +191,7 @@ local specs = {
   'https://github.com/mason-org/mason-lspconfig.nvim',
   'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
   'https://github.com/j-hui/fidget.nvim',
-  { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range '>=6.0.0 <7.0.0' },
+  { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range '>=9.0.0 <10.0.0' },
   'https://github.com/folke/lazydev.nvim',
 
   -- Editing
