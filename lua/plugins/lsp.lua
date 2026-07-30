@@ -2,7 +2,6 @@ local M = {}
 
 function M.setup()
   require('mason').setup()
-  require('fidget').setup()
 
   -- lazydev: only activate for Lua files
   vim.api.nvim_create_autocmd('FileType', {

@@ -23,9 +23,6 @@ function M.setup()
 
   require('mini.trailspace').setup()
 
-  require('mini.notify').setup()
-  vim.notify = require('mini.notify').make_notify()
-
   local hipatterns = require 'mini.hipatterns'
   hipatterns.setup {
     highlighters = {

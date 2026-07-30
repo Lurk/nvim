@@ -190,17 +190,19 @@ local specs = {
   'https://github.com/mason-org/mason.nvim',
   'https://github.com/mason-org/mason-lspconfig.nvim',
   'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim',
-  'https://github.com/j-hui/fidget.nvim',
   { src = 'https://github.com/mrcjkb/rustaceanvim', version = vim.version.range '>=9.0.0 <10.0.0' },
   'https://github.com/folke/lazydev.nvim',
 
   -- Editing
   'https://github.com/stevearc/conform.nvim',
-  'https://github.com/nvim-mini/mini.nvim',
   'https://github.com/lewis6991/gitsigns.nvim',
+
+  -- mini
+  'https://github.com/nvim-mini/mini.nvim',
 
   -- UI
   { src = 'https://github.com/nvim-telescope/telescope.nvim', version = 'master' },
+  'https://github.com/j-hui/fidget.nvim',
   'https://github.com/nvim-telescope/telescope-ui-select.nvim',
   { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = 'v3.x' },
 
@@ -237,6 +239,7 @@ vim.pack.add(specs)
 
 -- [[ Configure plugins ]]
 require('plugins.gruvbox-material').setup()
+require('plugins.fidget').setup()
 require('plugins.treesitter').setup()
 require('plugins.mini').setup()
 require('plugins.telescope').setup()
