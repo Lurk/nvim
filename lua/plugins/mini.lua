@@ -60,7 +60,7 @@ function M.setup()
 
   vim.keymap.set('n', '<leader>gd', function()
     diff_vs_branch 'main'
-  end, { desc = '[G]it [d]iff vs main' })
+  end, { desc = '[g]it [d]iff vs main' })
 
   vim.keymap.set('n', '<leader>gD', function()
     local base = vim.fn.input('Diff vs branch: ')
@@ -68,7 +68,7 @@ function M.setup()
       return
     end
     diff_vs_branch(base)
-  end, { desc = '[G]it [d]iff vs [b]ranch' })
+  end, { desc = '[g]it [D]iff vs [b]ranch' })
 
   require('mini.cursorword').setup()
   require('mini.pairs').setup()

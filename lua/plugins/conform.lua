@@ -20,7 +20,7 @@ function M.setup()
 
   vim.keymap.set('', '<leader>f', function()
     require('conform').format { async = true, lsp_fallback = true }
-  end, { desc = '[F]ormat buffer' })
+  end, { desc = '[f]ormat buffer' })
 end
 
 return M

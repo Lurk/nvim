@@ -9,7 +9,7 @@ function M.setup()
     require('neotest').run.run { suite = false, strategy = 'dap' }
   end
 
-  vim.keymap.set('n', '<leader>dt', debug_current, { desc = '[D]ebug current [t]est' })
+  vim.keymap.set('n', '<leader>dt', debug_current, { desc = '[d]ebug current [t]est' })
   vim.keymap.set('n', '<leader>rt', run_all_tests, { desc = '[r]un all [t]ests in current file' })
 
   require('neotest').setup {

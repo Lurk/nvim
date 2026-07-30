@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup()
-  vim.keymap.set('n', '<leader>t', '<Cmd>Neotree toggle<CR>', { desc = '[T]oggle Explorer' })
+  vim.keymap.set('n', '<leader>t', '<Cmd>Neotree toggle<CR>', { desc = '[t]oggle Explorer' })
   vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
   vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
   vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })

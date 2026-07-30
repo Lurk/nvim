@@ -19,7 +19,7 @@ function M.setup()
   vim.keymap.set({ 'n', 't', 'i' }, '<F7>', '<cmd>ToggleTerm<cr>', { desc = 'Toggle [t]erminal' })
   vim.keymap.set('n', '<leader>gg', function()
     lazygit:toggle()
-  end, { desc = 'lazy[G]it' })
+  end, { desc = 'lazy[g]it' })
 end
 
 return M
