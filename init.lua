@@ -227,7 +227,6 @@ local specs = {
 
   -- AI
   'https://github.com/github/copilot.vim',
-  'https://github.com/olimorris/codecompanion.nvim',
 }
 
 -- Conditional plugins
@@ -253,7 +252,6 @@ require('plugins.neotest').setup()
 require('plugins.crates').setup()
 require('plugins.package-info').setup()
 require('plugins.copilot').setup()
-require('plugins.codecompanion').setup()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

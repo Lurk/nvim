@@ -1,9 +1,5 @@
 {
   "plugins": {
-    "codecompanion.nvim": {
-      "rev": "0e177836070e7206890e6c5fb4a21d122dff3d50",
-      "src": "https://github.com/olimorris/codecompanion.nvim"
-    },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
@@ -114,7 +110,7 @@
     "rustaceanvim": {
       "rev": "5a3a4158857ee1f7ec839b6ddd87cc0083a19c5f",
       "src": "https://github.com/mrcjkb/rustaceanvim",
-      "version": ">=6.0.0"
+      "version": ">=9.0.0"
     },
     "telescope-fzf-native.nvim": {
       "rev": "b25b749b9db64d375d782094e2b9dce53ad53a40",
