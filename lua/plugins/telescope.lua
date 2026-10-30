@@ -2,6 +2,10 @@ local M = {}
 
 function M.setup()
   require('telescope').setup {
+    defaults = {
+      path_display = { 'filename_first' },
+      layout_strategy = 'flex',
+    },
     extensions = {
       ['ui-select'] = {
         require('telescope.themes').get_dropdown(),
