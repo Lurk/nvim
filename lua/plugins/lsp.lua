@@ -71,6 +71,15 @@ function M.setup()
       settings = {},
     },
     ts_ls = {},
+    clangd = {
+      cmd = {
+        'clangd',
+        '--background-index',
+        '--clang-tidy',
+        '--header-insertion=iwyu',
+        '--completion-style=detailed',
+      },
+    },
     lua_ls = {
       settings = {
         Lua = {
@@ -88,16 +97,13 @@ function M.setup()
   })
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-  require('mason-lspconfig').setup {
-    ensure_installed = {},
-    automatic_installation = false,
-    handlers = {
-      function(server_name)
-        local server = servers[server_name] or {}
-        require('lspconfig')[server_name].setup(server)
-      end,
-    },
-  }
+  -- mason-lspconfig v2 auto-enables installed servers via vim.lsp.enable;
+  -- custom settings must be registered with vim.lsp.config beforehand.
+  for name, config in pairs(servers) do
+    vim.lsp.config(name, config)
+  end
+
+  require('mason-lspconfig').setup()
 end
 
 return M
