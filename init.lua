@@ -220,6 +220,7 @@ local specs = {
   'https://github.com/nvim-neotest/neotest-jest',
   'https://github.com/marilari88/neotest-vitest',
   'https://github.com/rouge8/neotest-rust',
+  'https://github.com/andythigpen/nvim-coverage',
 
   -- Language-specific
   { src = 'https://github.com/saecki/crates.nvim', version = 'stable' },
@@ -249,6 +250,7 @@ require('plugins.neo-tree').setup()
 require('plugins.toggleterm').setup()
 require('plugins.debug').setup()
 require('plugins.neotest').setup()
+require('plugins.coverage').setup()
 require('plugins.crates').setup()
 require('plugins.package-info').setup()
 require('plugins.copilot').setup()
