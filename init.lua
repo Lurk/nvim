@@ -113,6 +113,11 @@ vim.keymap.set('n', '<leader>pu', function()
 end, { desc = '[p]ack [u]pdate' })
 vim.keymap.set('n', '<leader>/', ':normal gcc<CR><DOWN>', { desc = '[/] Toggle comment line' })
 vim.keymap.set('n', 'U', '<C-r>', { noremap = true, desc = 'Redo' })
+vim.keymap.set('n', '<leader>cp', function()
+  local path = vim.fn.expand '%:p'
+  vim.fn.setreg('+', path)
+  vim.notify('Copied: ' .. path)
+end, { desc = '[c]opy file [p]ath' })
 -- <Esc> - exists visual mode.
 -- :normal executes keystrokes in normal mode.
 -- gv - restores selection.
